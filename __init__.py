@@ -50,7 +50,12 @@ class Acunetix(requests.Session):
         :return: Server info like license, expiry etc
         """
         url = self.url + "/api/v1/me/login"
-        data = {"email": self.username, "password": self.password, "remember_me": False}
+        data = {
+            "email": self.username,
+            "password": self.password,
+            "remember_me": True,
+            "logout_previous": True,
+        }
         resp = self.post(url, json=data)
         if resp.status_code == 204 and "X-Auth" in resp.headers:
             self.authenticated = True
